@@ -38,7 +38,16 @@ Board::Board(Vec2<int> screenPos, Vec2<int> dimensions, int cellSize_in, int pad
 {
     assert(width > 0 && height > 0);
     assert(cellSize > 0);
+
     cells.resize(width*height);
+    for (int iX = 0; iX < width; iX++)
+    {
+        for (int iY = 0; iY < height; iY++) 
+        {
+            int index = iY * width + iX;
+            cells[index].SetColour(BLACK);
+        }
+    }
 }
 
 void Board::SetCell(Vec2<int> pos, Color c) 

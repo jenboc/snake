@@ -78,5 +78,11 @@ void Player::Draw()
 
 void Player::ChangeDir(char direction)
 {
+    if ((dir == 'a' && direction == 'd') ||
+        (dir == 'd' && direction == 'a') ||
+        (dir == 'w' && direction == 's') ||
+        (dir == 's' && direction == 'w'))
+        return;
+        
     dir = direction;
 }

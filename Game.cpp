@@ -46,5 +46,22 @@ void Game::Draw()
 
 void Game::Update() 
 {
+    if (IsKeyPressed(KEY_W))
+    {
+        player.ChangeDir('w');
+    }
+    else if (IsKeyPressed(KEY_A))
+    {
+        player.ChangeDir('a');
+    }
+    else if (IsKeyPressed(KEY_S))
+    {
+        player.ChangeDir('s');
+    }
+    else if (IsKeyPressed(KEY_D))
+    {
+        player.ChangeDir('d');
+    }
+
     player.Update();
 }

@@ -16,5 +16,5 @@ namespace settings
 
     // Player Settings
     constexpr Vec2<double> playerStartPos{20, 20};
-    constexpr int movePerSecond = 1;
+    constexpr int movePerSecond = 3;
 }

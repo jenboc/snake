@@ -19,7 +19,7 @@ private:
         Color colour;
     };
 public:
-    Board(int x, int y, int width_in, int height_in, int cellSize_in);
+    Board(int x, int y, int width_in, int height_in, int cellSize_in, int padding_in);
     void SetCell(int x, int y, Color c);
     void DrawCell(int x, int y) const;
     void Draw() const;
@@ -31,4 +31,5 @@ private:
     const int width;
     const int height;
     const int cellSize;
+    const int padding;
 };

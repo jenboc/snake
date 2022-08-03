@@ -27,13 +27,14 @@ Color Board::Cell::GetColour() const
 
 
 // ====== Board ======
-Board::Board(int x, int y, int width_in, int height_in, int cellSize_in) 
+Board::Board(int x, int y, int width_in, int height_in, int cellSize_in, int padding_in) 
     : 
     screenX(x),
     screenY(y),
     width(width_in), 
     height(height_in),
-    cellSize(cellSize_in)
+    cellSize(cellSize_in),
+    padding(padding_in)
 {
     assert(width > 0 && height > 0);
     assert(cellSize > 0);
@@ -52,7 +53,11 @@ void Board::DrawCell(int x, int y) const
     assert(x >= 0 && x < width && y >= 0 && y < height);
     int index = (width * y) + x;
     Color c = cells[index].GetColour();
-    DrawRectangle(screenX + x * cellSize, screenY + y * cellSize, cellSize, cellSize, c);
+    DrawRectangle(screenX + x * cellSize + padding,
+                screenY + y * cellSize + padding,
+                cellSize - padding,
+                cellSize - padding,
+                c);
 }
 
 void Board::Draw() const 

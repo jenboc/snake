@@ -11,7 +11,8 @@ Game::Game(int width, int height, int fps, std::string title)
           settings::cellSize,
           settings::padding),
     player(settings::playerStartPos,
-           board)
+           board),
+    food(player, board)
 {
     assert(!GetWindowHandle()); // If triggers: window already opened
     SetTargetFPS(fps);
@@ -41,6 +42,7 @@ void Game::Draw()
 {
     ClearBackground(BLACK);
     board.Draw();
+    food.Draw();
     player.Draw();
 }
 
@@ -64,4 +66,9 @@ void Game::Update()
     }
 
     player.Update();
+
+    if (food.IsEaten())
+    {
+        player.ExtendBody(1); 
+    }
 }

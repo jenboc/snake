@@ -2,6 +2,7 @@
 #include <string>
 #include "Board.h"
 #include "Player.h"
+#include "Food.h"
 
 class Game 
 {
@@ -21,4 +22,5 @@ private:
 
     Board board;
     Player player;
+    Food food;
 };

@@ -6,14 +6,16 @@
 class Player 
 {
 public:
-    Player(Vec2<double> startPos, const Board& board);
+    Player(Vec2<int> startPos, const Board& board);
     bool isAlive; 
     void Update();
     void Draw();
+    void ExtendBody(int n);
     void ChangeDir(char direction);
+    Vec2<int> GetHead() const;
 private:
-    char dir;
+    Vec2<int> dir;
     int sinceLastMove;
     const Board& board;
-    std::vector<Vec2<double>> body; 
+    std::vector<Vec2<int>> body; 
 };

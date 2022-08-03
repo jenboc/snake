@@ -4,11 +4,10 @@
 #include "Board.h"
 #include "Settings.h"
 
-
-Player::Player(Vec2<double> startPos, const Board& board) 
+Player::Player(Vec2<int> startPos, const Board& board) 
     :
     isAlive(true),
-    dir('d'),
+    dir(0,0),
     sinceLastMove(0),
     board(board)
 {  
@@ -28,26 +27,9 @@ void Player::Update()
     sinceLastMove = 0;
 
     // Move
-    Vec2<double> offset{0,0};
-    switch(dir) 
-    {
-    case 'w':
-        offset = Vec2<double>{0,-1};
-        break;
-    case 'a':
-        offset = Vec2<double>{-1,0};
-        break;
-    case 's':
-        offset = Vec2<double>{0,1};
-        break;
-    case 'd':
-        offset = Vec2<double>{1,0};
-        break;
-    };
-
     for (int i = 0; i < body.size(); i++) 
     {
-        body[i] += offset; 
+        body[i] += dir; 
         if (body[i].GetX() > settings::boardDimensions.GetX())
         {
             body[i].SetX(0);
@@ -72,17 +54,44 @@ void Player::Draw()
 {
     for (int i = 0; i < body.size(); i++) 
     {
-        board.DrawCell(Vec2<int>{(int)body[i].GetX(), (int)body[i].GetY()}, RED);
+        board.DrawCell(Vec2<int>{body[i].GetX(), body[i].GetY()}, settings::playerColour);
     }
 }
 
-void Player::ChangeDir(char direction)
+void Player::ExtendBody(int n) 
 {
-    if ((dir == 'a' && direction == 'd') ||
-        (dir == 'd' && direction == 'a') ||
-        (dir == 'w' && direction == 's') ||
-        (dir == 's' && direction == 'w'))
-        return;
-        
-    dir = direction;
+    if (n <= 0) 
+        return; 
+
+    int lastIndex = body.size() - 1; 
+    body.resize(body.size() + n);
+
+    Vec2<int> newCellPos = body[lastIndex] - dir;
+    body[lastIndex+1] = newCellPos;
+
+    ExtendBody(n-1); 
+}
+
+void Player::ChangeDir(char dirKey)
+{
+    switch(dirKey) 
+    {
+    case 'w':
+        dir = Vec2<int>{0,-1};
+        break;
+    case 'a':
+        dir = Vec2<int>{-1,0};
+        break;
+    case 's':
+        dir = Vec2<int>{0,1};
+        break;
+    case 'd':
+        dir = Vec2<int>{1,0};
+        break;
+    };
+}
+
+Vec2<int> Player::GetHead() const 
+{
+    return body[0];
 }

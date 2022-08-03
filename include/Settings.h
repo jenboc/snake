@@ -15,6 +15,10 @@ namespace settings
     constexpr Vec2<int> boardDimensions{screenWidth/cellSize, screenHeight/cellSize};
 
     // Player Settings
-    constexpr Vec2<double> playerStartPos{20, 20};
+    constexpr Vec2<int> playerStartPos{20, 20};
     constexpr int movePerSecond = 3;
+    constexpr Color playerColour = RED;
+
+    // Food Settings
+    constexpr Color foodColour = GREEN;
 }

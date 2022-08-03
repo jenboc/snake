@@ -1,6 +1,5 @@
 #include <raylib.h> 
 #include <assert.h> 
-
 #include "Game.h"
 #include "Settings.h"
 
@@ -13,7 +12,8 @@ Game::Game(int width, int height, int fps, std::string title)
     player(settings::playerStartPos,
            board),
     food(player, board)
-{
+{ 
+    // Set up window 
     assert(!GetWindowHandle()); // If triggers: window already opened
     SetTargetFPS(fps);
     InitWindow(width, height, title.c_str());

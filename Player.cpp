@@ -27,25 +27,45 @@ void Player::Update()
     sinceLastMove = 0;
 
     // Move
-    for (int i = 0; i < body.size(); i++) 
+    if (isAlive)
     {
-        body[i] += dir; 
-        if (body[i].GetX() > settings::boardDimensions.GetX())
+        for (int i = body.size()-1; i > 0; i--) 
         {
-            body[i].SetX(0);
+            body[i] = Vec2<int>{body[i-1].GetX(), body[i-1].GetY()};
         }
-        else if (body[i].GetX() < 0)
-        {
-            body[i].SetX(settings::boardDimensions.GetX());
-        }
+        body[0] += dir;
+    }
 
-        if (body[i].GetY() > settings::boardDimensions.GetY())
+    // Collision Detection 
+    // Borders
+    if (body[0].GetX() < 0) 
+    {
+        body[0].SetX(0);
+        isAlive = false;
+    }
+    else if (body[0].GetX() > settings::boardDimensions.GetX())
+    {
+        body[0].SetX(settings::boardDimensions.GetX());
+        isAlive = false; 
+    }
+
+    if (body[0].GetY() < 0)
+    {
+        body[0].SetY(0);
+        isAlive = false;
+    }
+    else if (body[0].GetY() > settings::boardDimensions.GetY()) 
+    {
+        body[0].SetY(settings::boardDimensions.GetY());
+        isAlive = false;
+    }
+
+    // Body
+    for (int i = 1; i < body.size(); i++) 
+    {
+        if (body[i] == body[0]) 
         {
-            body[i].SetY(settings::boardDimensions.GetY());
-        }
-        else if (body[i].GetY() < 0)
-        {
-            body[i].SetY(settings::boardDimensions.GetY());
+            isAlive = false;
         }
     }
 }

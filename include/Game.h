@@ -19,8 +19,20 @@ public:
 private: 
     void Draw();
     void Update();
+    
+    void DrawMenu(std::string title, std::string text);
+
+    enum states
+    {
+        mainMenu,
+        mainGame, 
+        deathScreen
+    };
+    states currentState;
 
     Board board;
     Player player;
     Food food;
+
+    int score;
 };

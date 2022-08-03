@@ -7,6 +7,9 @@ namespace settings
     constexpr int screenWidth = 920;
     constexpr int screenHeight = 690;
     constexpr int fps = 60;
+    constexpr int titleSize = 40;
+    constexpr int textSize = 30;
+    constexpr Color textColour = LIGHTGRAY;
 
     // Board Settings
     constexpr int cellSize = 23;

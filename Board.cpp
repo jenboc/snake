@@ -1,5 +1,6 @@
 #include "Board.h"
-#include <raylib.h>
+#include "Vec2.h"
+#include <raylibCpp.h>
 #include <assert.h>
 
 // ====== Cell ======
@@ -27,12 +28,11 @@ Color Board::Cell::GetColour() const
 
 
 // ====== Board ======
-Board::Board(int x, int y, int width_in, int height_in, int cellSize_in, int padding_in) 
+Board::Board(Vec2<int> screenPos, Vec2<int> dimensions, int cellSize_in, int padding_in) 
     : 
-    screenX(x),
-    screenY(y),
-    width(width_in), 
-    height(height_in),
+    screenPos(screenPos),
+    width(dimensions.GetX()), 
+    height(dimensions.GetY()),
     cellSize(cellSize_in),
     padding(padding_in)
 {
@@ -41,23 +41,27 @@ Board::Board(int x, int y, int width_in, int height_in, int cellSize_in, int pad
     cells.resize(width*height);
 }
 
-void Board::SetCell(int x, int y, Color c) 
+void Board::SetCell(Vec2<int> pos, Color c) 
 {
+    int x = pos.GetX();
+    int y= pos.GetY();
     assert(x >= 0 && y >= 0 && x < width && y < height);
     int index = (width * y) + x;
     cells[index].SetColour(c);
 }
 
-void Board::DrawCell(int x, int y) const 
+void Board::DrawCell(Vec2<int> pos) const 
 {
+    int x = pos.GetX();
+    int y = pos.GetY();
+
     assert(x >= 0 && x < width && y >= 0 && y < height);
-    int index = (width * y) + x;
+
+    int index = y * width + x;
     Color c = cells[index].GetColour();
-    DrawRectangle(screenX + x * cellSize + padding,
-                screenY + y * cellSize + padding,
-                cellSize - padding,
-                cellSize - padding,
-                c);
+
+    Vec2<int> topLeft = screenPos + padding + (pos * cellSize);
+    raycpp::DrawRectangle(topLeft, Vec2<int>{cellSize, cellSize} - padding, c);
 }
 
 void Board::Draw() const 
@@ -66,7 +70,8 @@ void Board::Draw() const
     {
         for (int iX = 0; iX < width; iX++)
         {
-            DrawCell(iX, iY);
+            Vec2<int> pos{iX, iY};
+            DrawCell(pos);
         }
     }
 }

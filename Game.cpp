@@ -4,7 +4,7 @@
 
 Game::Game(int width, int height, int fps, std::string title) 
     :
-    board(200, 200, 10, 20, 15, 2)
+    board({200, 200}, {10, 20}, 15, 2)
 {
     assert(!GetWindowHandle()); // If triggers: window already opened
     SetTargetFPS(fps);
@@ -14,7 +14,7 @@ Game::Game(int width, int height, int fps, std::string title)
     {
         for (int iX = 0; iX < 10; ++iX)
         {
-            board.SetCell(iX, iY, RED);
+            board.SetCell({iX, iY}, RED);
         }
     }
 }

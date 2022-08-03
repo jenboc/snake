@@ -48,7 +48,7 @@ void Game::Draw()
     switch(currentState) 
     {
     case mainMenu:
-        DrawMenu("Snake", "Press SPACE to start\nUse WASD to move");
+        DrawMenu("Snake", "\nPress SPACE to start\nUse WASD to move");
         break;
     case mainGame: 
         board.Draw();

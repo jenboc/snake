@@ -9,7 +9,9 @@ Game::Game(int width, int height, int fps, std::string title)
     board(settings::boardPos,
           settings::boardDimensions,
           settings::cellSize,
-          settings::padding)
+          settings::padding),
+    player(settings::playerStartPos,
+           board)
 {
     assert(!GetWindowHandle()); // If triggers: window already opened
     SetTargetFPS(fps);
@@ -29,8 +31,8 @@ bool Game::GameShouldClose() const
 
 void Game::Tick()
 {
-    BeginDrawing();
     Update();
+    BeginDrawing();
     Draw();
     EndDrawing();
 }
@@ -39,9 +41,10 @@ void Game::Draw()
 {
     ClearBackground(BLACK);
     board.Draw();
+    player.Draw();
 }
 
 void Game::Update() 
 {
-
+    player.Update();
 }

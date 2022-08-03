@@ -44,8 +44,7 @@ Board::Board(Vec2<int> screenPos, Vec2<int> dimensions, int cellSize_in, int pad
     {
         for (int iY = 0; iY < height; iY++) 
         {
-            int index = iY * width + iX;
-            cells[index].SetColour(BLACK);
+            SetCell({iX, iY}, BLACK);
         }
     }
 }
@@ -53,10 +52,18 @@ Board::Board(Vec2<int> screenPos, Vec2<int> dimensions, int cellSize_in, int pad
 void Board::SetCell(Vec2<int> pos, Color c) 
 {
     int x = pos.GetX();
-    int y= pos.GetY();
+    int y = pos.GetY();
     assert(x >= 0 && y >= 0 && x < width && y < height);
     int index = (width * y) + x;
     cells[index].SetColour(c);
+}
+
+void Board::SetCells(std::vector<Vec2<int>> positions, Color c) 
+{
+    for (int i = 0; i < positions.size(); i++)
+    {
+        SetCell(positions[i], c);
+    }
 }
 
 void Board::DrawCell(Vec2<int> pos) const 
@@ -69,6 +76,15 @@ void Board::DrawCell(Vec2<int> pos) const
     int index = y * width + x;
     Color c = cells[index].GetColour();
 
+    DrawCell(pos, c);
+}
+
+void Board::DrawCell(Vec2<int> pos, Color c) const 
+{
+    if (!(pos.GetX() >= 0 && pos.GetX() < width && pos.GetY() >= 0 && pos.GetY() < height))
+    {
+        return;
+    }
     Vec2<int> topLeft = screenPos + padding + (pos * cellSize);
     raycpp::DrawRectangle(topLeft, Vec2<int>{cellSize, cellSize} - padding, c);
 }

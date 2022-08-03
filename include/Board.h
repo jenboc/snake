@@ -22,7 +22,9 @@ private:
 public:
     Board(Vec2<int> screenPos, Vec2<int> dimensions, int cellSize_in, int padding_in);
     void SetCell(Vec2<int> pos, Color c);
+    void SetCells(std::vector<Vec2<int>> positions, Color c);
     void DrawCell(Vec2<int> pos) const;
+    void DrawCell(Vec2<int> pos, Color c) const;
     void Draw() const;
 
 private: 

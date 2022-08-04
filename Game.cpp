@@ -112,8 +112,11 @@ void Game::Update()
         break;
     case deathScreen:
         if (IsKeyPressed(KEY_SPACE)) 
+        {  
+            player.Reset();
+            food.GenerateNewPos();
             currentState = mainMenu;
-
+        }
         break;
     }
 }

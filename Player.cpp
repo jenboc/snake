@@ -7,12 +7,21 @@
 Player::Player(Vec2<int> startPos, const Board& board) 
     :
     isAlive(true),
+    startPos(startPos),
     dir(0,0),
     sinceLastMove(0),
     board(board)
 {  
     body.resize(1);
-    body[0] = startPos;
+    body[0] = {startPos.GetX(), startPos.GetY()};
+}
+
+void Player::Reset() 
+{
+    body.resize(1); 
+    body[0] = {startPos.GetX(), startPos.GetY()}; 
+    isAlive = true;
+    dir = {0,0};
 }
 
 void Player::Update()

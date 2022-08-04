@@ -24,8 +24,8 @@ bool Food::IsEaten()
 
 void Food::GenerateNewPos() 
 {
-    int maxX = settings::boardDimensions.GetX();
-    int maxY = settings::boardDimensions.GetY();
+    int maxX = settings::boardDimensions.GetX()-1;
+    int maxY = settings::boardDimensions.GetY()-1;
 
     // Random Seed - based on unix time 
     auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());

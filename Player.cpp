@@ -106,15 +106,19 @@ void Player::ChangeDir(char dirKey)
     switch(dirKey) 
     {
     case 'w':
+        if (dir.GetY() == 1) return;
         dir = Vec2<int>{0,-1};
         break;
     case 'a':
+        if (dir.GetX() == 1) return;
         dir = Vec2<int>{-1,0};
         break;
     case 's':
+        if (dir.GetY() == -1) return;
         dir = Vec2<int>{0,1};
         break;
     case 'd':
+        if (dir.GetX() == -1) return; 
         dir = Vec2<int>{1,0};
         break;
     };
